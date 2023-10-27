@@ -778,6 +778,9 @@ continueLogin:
 		return
 	}
 
+	// TODO: insert after login submit hook call
+	// how to get identity identifier at this place?
+
 	var i *identity.Identity
 	var group node.UiNodeGroup
 	for _, ss := range h.d.AllLoginStrategies() {
@@ -786,8 +789,10 @@ continueLogin:
 		if errors.Is(err, flow.ErrStrategyNotResponsible) {
 			continue
 		} else if errors.Is(err, flow.ErrCompletedByStrategy) {
+			// TODO: insert after login failure hook call
 			return
 		} else if err != nil {
+			// TODO: insert after login failure hook call
 			h.d.LoginFlowErrorHandler().WriteFlowError(w, r, f, group, err)
 			return
 		}
@@ -805,6 +810,7 @@ continueLogin:
 	}
 
 	if i == nil {
+		// TODO: insert after login failure hook call
 		h.d.LoginFlowErrorHandler().WriteFlowError(w, r, f, node.DefaultGroup, errors.WithStack(schema.NewNoLoginStrategyResponsible()))
 		return
 	}

@@ -138,6 +138,10 @@ func (e *WebHook) ExecuteLoginPostHook(_ http.ResponseWriter, req *http.Request,
 	})
 }
 
+func (e *WebHook) ExecuteLoginSubmitPostHook() {}
+
+func (e *WebHook) ExecuteLoginFailurePostHook() {}
+
 func (e *WebHook) ExecuteVerificationPreHook(_ http.ResponseWriter, req *http.Request, flow *verification.Flow) error {
 	return otelx.WithSpan(req.Context(), "selfservice.hook.WebHook.ExecuteVerificationPreHook", func(ctx context.Context) error {
 		return e.execute(ctx, &templateContext{

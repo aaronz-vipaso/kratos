@@ -37,6 +37,10 @@ type (
 		ExecuteLoginPostHook(w http.ResponseWriter, r *http.Request, g node.UiNodeGroup, a *Flow, s *session.Session) error
 	}
 
+	PostSubmitHookExecutor interface{}
+
+	PostFailureHookExecutor interface{}
+
 	HooksProvider interface {
 		PreLoginHooks(ctx context.Context) []PreHookExecutor
 		PostLoginHooks(ctx context.Context, credentialsType identity.CredentialsType) []PostHookExecutor
